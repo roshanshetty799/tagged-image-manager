@@ -4,7 +4,12 @@
   "description": "tagged-image-manager playright/Cucumber frameowork for UI & API testing",
   "main": "cucumber.js",
   "scripts": {
-    "cucumber": "cucumber-js --tags \"%npm_config_tags%\" --retry %npm_config_retry% --parallel %npm_config_parallel%"
+    "cucumber": "cucumber-js --tags \"%npm_config_tags%\" --retry %npm_config_retry% --parallel %npm_config_parallel%",
+    "publishReport": "ts-node publishReport.ts",
+    "pree2e": "npm install",
+    "e2e": "npm-run-all cucumber publishReport --continue-on-error",
+    "pretest": "npm install",
+    "test": "cucumber-js"
   },
   "type": "commonjs",
   "author": "Roshan Shetty",
