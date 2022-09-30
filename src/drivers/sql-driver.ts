@@ -27,7 +27,7 @@ export class SqlDriver {
      *  @query - A valid SQL query
      *  @errorMessage - Error message to be displayed is the returned response is empty
      *
-     *  @return - Returns the first row from the response as an object as a Key (column Name) : Value (correponding data) pair.
+     *  @return - Returns the first row from the response as an object as a Key (column Name) : Value (corresponding data) pair.
      *
      */
 

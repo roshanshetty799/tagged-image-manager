@@ -1,21 +1,22 @@
 /*
  Author      : Roshan S.
- Description : This file contains functions needed to populate random data for filling forms
+ Description : This file contains functions needed to populate random data for filling forms.
 */
 
 
 const randomData = multiKey([
     ['phoneNumber', 'ag-formField--mobile'],
+    ['TestField','TestTwoField','TestThreeField']
 
 ]);
 
+// All keys that are part of the 'phoneNumber' block share the same value
 randomData['phoneNumber'] = getRandom_Int(10);
+// TestTwoField & TestThreeField share the same value
+randomData['TestField'] = "Some_Value"
 
 
 
-export const getRandom_Data = (fieldName: string | number) => {
-    return randomData[fieldName];
-};
 
 
 function getRandom_Int(length: number) {
@@ -56,3 +57,15 @@ function multiKey(keyGroups: string[][]) {
 
     return Object.defineProperties(obj, props);
 }
+
+/**
+ * Call this function where validating the input data is not part of the test
+ * Specify 'Random' in the dataTables and call this function in the corresponding
+ * step definition. Ensure that the field/fieldset has been assigned a random value above
+ * @param fieldName - The cssSelector of the field
+ */
+export const getRandom_Data = (fieldName: string | number) => {
+    return randomData[fieldName];
+
+};
+
