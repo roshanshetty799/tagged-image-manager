@@ -1,7 +1,7 @@
 /*
  Author      : Roshan S.
  Description : This class contains a wrapper for frequently used Playwright page objects.
-               Best Practice is not to use them directly as this way we centralize our customized code into a single place.
+               Best Practice is not to use them directly as this way we centralize native playwright calls into a single place.
  */
 
 import {BrowserContext, Page} from "playwright";

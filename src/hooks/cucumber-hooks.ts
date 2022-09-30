@@ -8,9 +8,12 @@
 
 import {CustomWorld} from '../support/cucumber-world';
 import {config} from '../support/config';
-import {After, AfterAll, Before, BeforeAll, setDefaultTimeout} from '@cucumber/cucumber';
+import {After, AfterAll, Before, BeforeAll, setDefaultTimeout, Status} from '@cucumber/cucumber';
 import {chromium, ChromiumBrowser, firefox, FirefoxBrowser, webkit, WebKitBrowser,} from 'playwright';
 import {ITestCaseHookParameter} from '@cucumber/cucumber/lib/support_code_library_builder/types';
+import {AllPagesObject} from "../pages/all-pages-object";
+import {ApiDriver} from "../drivers/api-driver";
+
 
 let browser: ChromiumBrowser | FirefoxBrowser | WebKitBrowser;
 
@@ -50,19 +53,25 @@ Before( async function (this: CustomWorld, {pickle}: ITestCaseHookParameter) {
             width:1200,
             height:800
         },
-        locale: 'en-AU'
+        locale: 'en-AU',
 
     });
     this.page = await this.context.newPage();
-    if (this.env.APP === 'taggedImageAPI_APP') {
-       await console.log('Authentication set up for the API done');
-    } else {
-
-    }
+    this.pagesObj = new AllPagesObject(this.page, this.context, this.env);
+    this.apiDriver = new ApiDriver(this.env);
 
 });
 
-After(async function (this: CustomWorld) {
+After(async function (this: CustomWorld,{result}: ITestCaseHookParameter) {
+
+    if (result) {
+
+        if (this.env.APP === 'SampleUI_APP' && result.status === Status.FAILED ) {
+            const image = await this.pagesObj!.basePage.driver.getScreenshot();
+            image && (await this.attach(image, 'image/png'));
+        }
+    }
+    await this.context?.close();
 
 });
 

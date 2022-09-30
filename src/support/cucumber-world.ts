@@ -1,6 +1,9 @@
 import {IWorldOptions, setWorldConstructor, World} from '@cucumber/cucumber';
 import * as messages from '@cucumber/messages';
-import {BrowserContext, Page} from 'playwright';
+import { BrowserContext, Page} from 'playwright';
+import {AllPagesObject} from "../pages/all-pages-object";
+import {ApiDriver } from "../drivers/api-driver";
+import {APIResponse} from "@playwright/test";
 
 
 export interface CucumberWorldConstructorParams {
@@ -25,6 +28,9 @@ export interface CustomWorld extends World {
     startDate?: string;
     startTime?: string;
     env: EnvConstants;
+    pagesObj?: AllPagesObject;
+    apiDriver?: ApiDriver;
+    response?:APIResponse;
 
 
 }
